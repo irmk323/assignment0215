@@ -19,26 +19,32 @@ public class Assignment0215Application {
 	        FileInputStream fileInput = new FileInputStream(path);
 	        InputStreamReader inputStream = new InputStreamReader(fileInput);
 	        buffReader = new BufferedReader(inputStream);
-	        String currentContent;	                
+	        String currentContent;
+	        
 	        Assignment0215Logic cropOutputLogic = new Assignment0215Logic();
+	        Assignment0215Validation cropOutputValidation = new Assignment0215Validation();
 	        
 	        while((currentContent = buffReader.readLine()) != null) {
 	            String[] arrayColumnData = currentContent.split(",");
-		          
-		          Double totalSumOfCountry = 0.0;
-		          for(int i = 1; i < arrayColumnData.length; i++ ) {
-		        	  if(i % 2 == 0) {
-		        		  totalSumOfCountry += Double.parseDouble(arrayColumnData[i]);
-		        	  }
+	            
+		          if(cropOutputValidation.cropFormatValidation(arrayColumnData)) {
+			          Double totalSumOfCountry = 0.0;
+			          for(int i = 1; i < arrayColumnData.length; i++ ) {
+			        	  if(i % 2 == 0) {
+			        		  totalSumOfCountry += Double.parseDouble(arrayColumnData[i]);
+			        	  }
+			          }
+			          for(int i = 1; i < arrayColumnData.length; i++ ) {
+			        	  if(i % 2 != 0) {
+			        		  arrayColumnData[i] = cropOutputLogic.convertCropInitialToName(arrayColumnData[i].trim());
+			        	  }else {
+			        		  arrayColumnData[i] = cropOutputLogic.calculateCropsPercentage(totalSumOfCountry, Double.parseDouble(arrayColumnData[i]));
+			        	  }
+			          }
+			        	  System.out.println((Arrays.toString(arrayColumnData)));		        	  
+		          }else {
+		        	  continue;
 		          }
-		          for(int i = 1; i < arrayColumnData.length; i++ ) {
-		        	  if(i % 2 != 0) {
-		        		  arrayColumnData[i] = cropOutputLogic.convertCropInitialToName(arrayColumnData[i].trim());
-		        	  }else {
-		        		  arrayColumnData[i] = cropOutputLogic.calculateCropsPercentage(totalSumOfCountry, Double.parseDouble(arrayColumnData[i]));
-		        	  }
-		          }
-		        	  System.out.println((Arrays.toString(arrayColumnData)));
 	        }
 	      } catch(Exception ex) {
 	        ex.printStackTrace();
