@@ -8,8 +8,6 @@ public class Assignment0215Validation {
 		final String[] cropCodeListArray = {"W", "B", "M", "BE", "C", "PO", "PA" , "O"};
 		final List<String> cropCodeList = Arrays.asList(cropCodeListArray);
 		
-//		System.out.println(arrayColumnData[0]);
-		
 		if(arrayColumnData.length % 2 == 0) {
 			System.out.println("The data of this line might have problem. ");
 			return false;
@@ -31,10 +29,8 @@ public class Assignment0215Validation {
      			 System.out.println("Crop amount is not set properly : " + arrayColumnData[i]);
     			 return false;     			  
       		  }
-      	  }
-        		
+      	  }	
         }
-//		 System.out.println("");
 		return true;
 	}
 }
